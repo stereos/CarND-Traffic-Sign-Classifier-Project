@@ -511,11 +511,11 @@ test Accuracy = 0.972
 
 And the graph:
 
-<img src="./images/newnormgraph" width="200"> 
+<img src="./images/newnormgraph.png" width="200"> 
 
 I also tried plotting how my extra images did during the training..
 
-<img src="./images/mygraph" width="200"> 
+<img src="./images/mygraph.png" width="200"> 
 
 We can see that it actually did fail only one a few times in the beginning, so perhaps our network migth get a bit overfit, and the validation is just too similar to the training.. or just because
 my own images just shouldn't be able to guess correct and it was just luck and actually did "worse" 
