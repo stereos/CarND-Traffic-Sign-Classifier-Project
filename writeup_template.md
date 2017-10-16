@@ -1,9 +1,5 @@
 #**Traffic Sign Recognition** 
 
-##Writeup Template
-
-###You can use this file as a template for your writeup if you want to submit it as a markdown file, but feel free to use some other method and submit a pdf if you prefer.
-
 ---
 
 **Build a Traffic Sign Recognition Project**
@@ -30,7 +26,7 @@ The goals / steps of this project are the following:
 
 ####1. Provide a Writeup / README that includes all the rubric points and how you addressed each one. You can submit your writeup as markdown or pdf. You can use this template as a guide for writing the report. The submission includes the project code.
 
-You're reading it! and here is a link to my [project code](https://github.com/stereos/CarND-Traffic-Sign-Classifier-Project/Traffic_Sign_Classifier.ipynb)
+You're reading it! and here is a link to my [project code](https://github.com/stereos/CarND-Traffic-Sign-Classifier-Project/blob/master/Traffic_Sign_Classifier.ipynb)
 
 ###Data Set Summary & Exploration
 
@@ -116,6 +112,7 @@ Here's one example:
 
 One thing I tried in the end to be able to classify one of the own new pictures(where the sign was a bit away), was to let them also zoom out(or in) pretty much and moved around almost anywhere with a very low probability.
 It didn't work better anyway, but it didn't make it worse.. But as can be seen below, my car should be able to drive when drunk! And who wants a boring sober car? (is that legal?)
+
 <img src="./images/DrunkLearning.png" width="400">
 
 
@@ -135,7 +132,7 @@ My final model consisted of the following layers:
 | Max pooling	  	| 2x2 Stride, outputs 6x6x28			|
 | Convolution  		| 1x1 stride, outputs 4x4x48			|
 | RELU			| 						|
-| Convolution 1x1	| Outputs 1x1x48				|
+| Convolution 1x1	| Outputs 4x4x48				|
 | Flatten		| Outputs 768 					|
 | Fully connected	| Outputs 320					|
 | Dropout 0.5		|						|
@@ -148,7 +145,15 @@ My final model consisted of the following layers:
 
 
 When it comes to optimizer and any hyperparameters such as learning rate. I used the same as in the LeNET tutorial, so AdamOptimizer.
-I used a batch size of 1024. And as I had a pretty lot's of training data, the verification_accuracy was at it's best after only about 10 ephocs, but I ran it for a few more. Tried to change around too see what gave best result for my own choosen images, and was about the same anyway.
+I used differnt batch sizes, but for the run where this data come from I had 1024. And as I had a pretty lot's of training data, the validation_accuracy got very good after only about 20 ephocs. After this the validation goes up and down from about .980 to .987. However, at this point the training accuracy still get's sligtly better.. This migth be because of the training data perhaps has more and harder signs to predict, and thus takes longer time to find its optimal solution. 
+But when logging the accuracy and plotting it I noticed that the validation actually got better too! as we can see this in the graph below, and it's clear that even at 500 epochs it's actually getting a bit better.. 
+However, I only used 200 when I ran for all the data in this readme, so parhaps I would gotten better result by running even longer.
+
+<img src="./images/graph_orginalZoom500.png" width="200"><img src="./images/graph_orginalZoom1.png" width="200">
+
+ (I know the axis text is rather small, it's between y=.980 and .988, and x=1 to 500 for the first, and between y=.970 and 1, and x=1 to 100 for second
+
+
 
 
 
@@ -178,56 +183,56 @@ If we split up the test set and try class by class we get
 
 | class         	|     Accuracy	        		| 
 |:---------------------:|:---------------------------------------------:| 
-  0.        |    0.98333335
-   1.       |    0.99305556
-   2.       |    0.97466666
-   3.       |    0.94222222
-   4.       |    0.97121212
-   5.       |    0.96031746
-   6.       |    0.97333334
-   7.       |    0.94222222
-   8.       |    0.98000000
-   9.       |    0.96250000
-  10.       |    0.98484848
-  11.       |    0.92619048
-  12.       |    0.98840580
-  13.      |     0.99583333
-  14.      |     0.99629630
-  15.      |     0.99523810
-  16.      |     1.00000000
-  17.      |     0.97777778
-  18.      |     0.94102564
-  19.      |     1.00000000
-  20.      |     1.00000000
-  21.      |     0.94444442
-  22.       |    0.85000002
-  23.        |   1.00000000
-  24.         |  0.94444442
-  25.         |  0.95833333
-  26.         |  0.96111110
-  27.         |  0.85000002
-  28.         |  1.00000000
-  29.         |  1.00000000
-  30.         |  0.72666667
-  31.         |  0.99259259
-  32.         |  1.00000000
-  33.         |  0.98571429
-  34.         |  1.00000000
-  35.         |  0.95641026
-  36.         |  0.97500002
-  37.         |  1.00000000
-  38.         |  0.96086957
-  39.         |  0.98888886
-  40.         |  0.97777778
-  41.         |  1.00000000
-  42.         |  0.92222220
+|  0.        |    0.98333335
+|   1.       |    0.99305556
+|   2.       |    0.97466666
+|   3.       |    0.94222222
+|   4.       |    0.97121212
+|   5.       |    0.96031746
+|   6.       |    0.97333334
+|   7.       |    0.94222222
+|   8.       |    0.98000000
+|   9.       |    0.96250000
+|  10.       |    0.98484848
+|  11.       |    0.92619048
+|  12.       |    0.98840580
+|  13.      |     0.99583333
+|  14.      |     0.99629630
+|  15.      |     0.99523810
+|  16.      |     1.00000000
+|  17.      |     0.97777778
+|  18.      |     0.94102564
+|  19.      |     1.00000000
+|  20.      |     1.00000000
+|  21.      |     0.94444442
+|  22.       |    0.85000002
+|  23.        |   1.00000000
+|  24.         |  0.94444442
+|  25.         |  0.95833333
+|  26.         |  0.96111110
+|  27.         |  0.85000002
+|  28.         |  1.00000000
+|  29.         |  1.00000000
+|  30.         |  0.72666667
+|  31.         |  0.99259259
+|  32.         |  1.00000000
+|  33.         |  0.98571429
+|  34.         |  1.00000000
+|  35.         |  0.95641026
+|  36.         |  0.97500002
+|  37.         |  1.00000000
+|  38.         |  0.96086957
+|  39.         |  0.98888886
+|  40.         |  0.97777778
+|  41.         |  1.00000000
+|  42.         |  0.92222220
 
 from this list we can see that most classes did pretty good, but 3 classes was really bad 
 22. Bumpy road (0.85)
 27. Pedestrians (0.85) 
 30. Beware of ice/snow (0.72)
 
-When looking closer at what images failed in the "Beware of ice/snow" set many of those is almost impossible, and chould have been many different signs. for example
+When looking closer at what images failed in the "Beware of ice/snow" set many of those is almost impossible, and could have been many different signs. for example
 
 <img src="./images/isThisIce.png" width="64">
 
@@ -240,7 +245,7 @@ Don't want to add all those images, but can be found in the end of the notebook
 
 Among bumpy roads, it mostly got missclassified into road work, and even though it to us migth be clear it's 
 bumby sign, I assume that it's because the road work sign has one bump and a person, and somehow the network
-think the bump is a person.
+think the bump together with the shadow is a person.
 
 <img src="./images/bumpy_fail.png" width="64">
 
@@ -295,7 +300,7 @@ All accuracys was pretty good.that means it's good, if for example just the trai
 
 ####1. Choose five German traffic signs found on the web and provide them in the report. For each image, discuss what quality or qualities might be difficult to classify.
 
-Here are five(or maybe 7, I don't know how to count) German traffic signs that I found on the web:
+Here are "five"(seven) German traffic signs that I found on the web:
 
 <img src="./new_test/50.jpg" width="32">
 <img src="./new_test/warning.jpg" width="32">
@@ -437,9 +442,9 @@ FeatureMap of the "Beware of snow" sign, first conv layer, but after relu:
 <img src="./images/fm1.png" width="500">
 
 We can see a few interesting thing it picks up, for example in fmap6, where we
-can see something snowflaky.
+can see something snowflaky. We can also see that it sees some triangle part
 
-What hapens if we rotate?
+What hapens if we rotate the image before the network?
 
 <img src="./images/fm2.png" width="500">
 
@@ -469,15 +474,54 @@ something.
 
 
 
+If we instead check for the same image but go deeper 
+
+<img src="./images/fmap1.png" width="200">
+
+First we see what happens directly after first convolution
+
+<img src="./images/fmap2.png" width="200">
+
+And then after using Relu. we can see that parts get "cut away", just as it should
+
+<img src="./images/fmap3.png" width="200">
+
+and then ofcourse the maxpooling, that makes the resulotion smaller by applying max over 2x2. Now let's skip a few layers, this is the 2nd last convolution layer.
+We can clearly see that we get less pixels in each layer, but more layers. it's rather much zeros here.
+
+<img src="./images/fmapLastconv.png" width="200">
+
+and after the 1x1 conv layer we can see that it have taken those and it's not as much zeros.. maybe good, I hope.
+
+<img src="./images/lastconv1x1.png" width="200">
 
 
+After doing all this I found in the forum someone talking about something called CLAHE. If I understand it correctly it norwalize the histogram over the images by taking just
+part of it at a time.. 
+
+<img src="./images/stopchlae.png" width="200"> 
 
 
+This is obviosly much much better way of normalizing the image as much more deatails jumps out.. unfortunately I didn't have time to 
+redo everything again. But Heres some statistics I got from just adding that:
 
+Validation Accuracy = 0.988
+Training Accuracy = 0.999
+test Accuracy = 0.972
 
+And the graph:
 
+<img src="./images/newnormgraph" width="200"> 
 
+I also tried plotting how my extra images did during the training..
 
+<img src="./images/mygraph" width="200"> 
+
+We can see that it actually did fail only one a few times in the beginning, so perhaps our network migth get a bit overfit, and the validation is just too similar to the training.. or just because
+my own images just shouldn't be able to guess correct and it was just luck and actually did "worse" 
+
+Another good thing is that we now took all the bumpy road and Beware of ice/snow that we failed before. 
+But now we instead fail on "Vehicles over 3.5 metric tons prohibited" with just 0.58333337! :(
 
 
 
